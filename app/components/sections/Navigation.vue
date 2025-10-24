@@ -20,13 +20,14 @@
     <div class="nav-right">
       <NavLink v-for="item in rightMenuItems" :key="item" :value="item" />
       <a
-        href="https://facebook.com"
+        href="https://www.facebook.com/BieszczadzkiOgrod?ref=embed_page"
         target="_blank"
         rel="noopener noreferrer"
         class="social-icon"
       >
         <img src="/images/fsb.png" alt="Facebook" width="24" height="24" />
       </a>
+      
       <a
         href="https://instagram.com"
         target="_blank"
@@ -59,7 +60,7 @@ import { ref, onMounted, onUnmounted } from 'vue';
 const isMobileMenuOpen = ref(false);
 const showLogo = ref(false);
 
-const leftMenuItems = ['Pokoje', 'Domek', 'Gościniec', 'Regulamin'];
+const leftMenuItems = ['Pokoje', 'Domek', 'Regulamin'];
 const rightMenuItems = ['Blog', 'Okolica', 'Kontakt'];
 
 const toggleMobileMenu = () => {
