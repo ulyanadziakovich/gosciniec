@@ -68,7 +68,12 @@ const toggleMobileMenu = () => {
 };
 
 const handleScroll = () => {
-  if (window.scrollY > 100) {
+  // Logo pojawia się gdy tytuł "Gościniec pod Małym Królem" znika z widoku
+  // Tytuł ma margin-top: 110px + height: 120px + padding ≈ 250px
+  // Możesz dostosować tę wartość jeśli potrzebujesz
+  const heroTitleHeight = 250;
+
+  if (window.scrollY > heroTitleHeight) {
     showLogo.value = true;
   } else {
     showLogo.value = false;
@@ -76,6 +81,8 @@ const handleScroll = () => {
 };
 
 onMounted(() => {
+  // Sprawdź od razu przy załadowaniu
+  handleScroll();
   window.addEventListener('scroll', handleScroll);
 });
 
@@ -132,8 +139,10 @@ onUnmounted(() => {
   display: flex;
   align-items: center;
   position: absolute;
-  top: 0;
+  top: 5px;
   left: 0;
+  z-index: 1001;
+  height: 50px;
 }
 
 .logo-wrapper.show {
@@ -157,6 +166,8 @@ onUnmounted(() => {
   align-items: center;
   gap: 30px;
   margin-left: 100px;
+  position: relative;
+  z-index: 10;
 }
 
 @media (max-width: 768px) {

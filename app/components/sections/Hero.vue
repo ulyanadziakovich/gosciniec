@@ -1,5 +1,20 @@
 <template>
   <div class="hero-wrapper">
+    <!-- PRIORITY: Pierwsze zdjęcie z najwyższym priorytetem -->
+    <link rel="preload" as="image" :href="images[0]" />
+    
+    <!-- Preload pozostałych obrazów -->
+    <div class="preload-container">
+      <img 
+        v-for="(image, index) in images" 
+        :key="`preload-${index}`"
+        :src="image" 
+        :alt="''"
+        :fetchpriority="index === 0 ? 'high' : 'low'"
+        @load="onImageLoad(index)"
+      />
+    </div>
+    
     <div class="slide-container">
       <div
         v-for="(image, index) in images"
@@ -20,7 +35,7 @@
       <div class="hero-action-wrapper">
         <button class="hero-action">
           <a href="#pokoje">
-            <img
+            <NuxtImg
               src="/images/lupa.png"
               alt="Lupa"
               width="20"
@@ -69,28 +84,34 @@ const images = [
 
 const current = ref(0);
 const previous = ref(-1);
-const imagesLoaded = ref<boolean[]>([]);
+const imagesLoaded = ref<boolean[]>(new Array(images.length).fill(false));
+const allImagesLoaded = ref(false);
 
 let interval: NodeJS.Timeout | null = null;
 
-// Preload images
-onMounted(() => {
-  const preloadImages = async () => {
-    const loadedStates = await Promise.all(
-      images.map((src) => {
-        return new Promise<boolean>((resolve) => {
-          const img = new Image();
-          img.src = src;
-          img.onload = () => resolve(true);
-          img.onerror = () => resolve(false);
-        });
-      })
-    );
-    imagesLoaded.value = loadedStates;
-  };
-  preloadImages();
+// Dodaj meta tag dla preload pierwszego obrazu
+useHead({
+  link: [
+    {
+      rel: 'preload',
+      as: 'image',
+      href: images[0],
+      fetchpriority: 'high'
+    }
+  ]
+});
 
-  // Auto-advance slides - 10 sekund na każde zdjęcie
+const onImageLoad = (index: number) => {
+  imagesLoaded.value[index] = true;
+  
+  // Check if all images are loaded
+  if (imagesLoaded.value.every(loaded => loaded)) {
+    allImagesLoaded.value = true;
+  }
+};
+
+onMounted(() => {
+  // Start slideshow immediately
   interval = setInterval(() => {
     nextSlide();
   }, 10000);
@@ -123,15 +144,30 @@ const goToSlide = (index: number) => {
 };
 
 const slideStyle = (index: number) => {
-  const isLoaded = imagesLoaded.value[index];
-
   return {
-    backgroundImage: isLoaded ? `url("${images[index]}")` : 'none',
+    backgroundImage: `url("${images[index]}")`,
   };
 };
 </script>
 
 <style scoped>
+/* Preload container - ukryte obrazy do szybkiego ładowania */
+.preload-container {
+  position: absolute;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+  opacity: 0;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.preload-container img {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+}
+
 .hero-wrapper {
   position: relative;
   display: flex;
@@ -139,6 +175,8 @@ const slideStyle = (index: number) => {
   height: 100vh;
   width: 100vw;
   overflow: hidden;
+  /* Placeholder dla pierwszego obrazu podczas ładowania */
+  background-color: #1a1a1a;
 }
 
 .slide-container {
@@ -162,61 +200,80 @@ const slideStyle = (index: number) => {
   background-repeat: no-repeat;
   opacity: 0;
   transform: scale(1);
-  transition: opacity 2s ease-in-out;
+  transition: opacity 1.5s ease-in-out;
   z-index: 1;
+  /* Agresywne cachowanie i optymalizacja GPU */
+  will-change: opacity, transform;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
 }
 
-/* Efekt Ken Burns - powolny zoom + panorama */
+/* Pierwsze zdjęcie - natychmiastowy start */
+.slide:first-child {
+  /* Pierwsze zdjęcie jest od razu widoczne */
+  background-image: url('https://www.dropbox.com/scl/fi/i6brepybzkj5dr73lpg05/gosciniechero.jpeg?rlkey=d0r09tiq9yrb33dyy9h55sszj&st=u8287oit&dl=0&raw=1');
+}
+
+/* Efekt Ken Burns - zoom zostaje na końcu */
 .slide.ken-burns {
-  animation: kenBurns 10s ease-out forwards;
+  animation: kenBurnsStay 10s ease-out forwards;
 }
 
-@keyframes kenBurns {
+/* NOWA animacja - kończy się na zoom i tam zostaje */
+@keyframes kenBurnsStay {
   0% {
     transform: scale(1) translate(0, 0);
+    opacity: 1;
   }
   100% {
     transform: scale(1.15) translate(-2%, -2%);
+    opacity: 1;
   }
 }
 
 /* Alternatywne kierunki dla różnych slajdów */
 .slide:nth-child(1).ken-burns {
-  animation: kenBurns1 10s ease-out forwards;
+  animation: kenBurnsStay1 10s ease-out forwards;
 }
 
 .slide:nth-child(2).ken-burns {
-  animation: kenBurns2 10s ease-out forwards;
+  animation: kenBurnsStay2 10s ease-out forwards;
 }
 
 .slide:nth-child(3).ken-burns {
-  animation: kenBurns3 10s ease-out forwards;
+  animation: kenBurnsStay3 10s ease-out forwards;
 }
 
-@keyframes kenBurns1 {
+@keyframes kenBurnsStay1 {
   0% {
     transform: scale(1) translate(0, 0);
+    opacity: 1;
   }
   100% {
     transform: scale(1.15) translate(-3%, -1%);
+    opacity: 1;
   }
 }
 
-@keyframes kenBurns2 {
+@keyframes kenBurnsStay2 {
   0% {
     transform: scale(1) translate(0, 0);
+    opacity: 1;
   }
   100% {
     transform: scale(1.12) translate(2%, -2%);
+    opacity: 1;
   }
 }
 
-@keyframes kenBurns3 {
+@keyframes kenBurnsStay3 {
   0% {
     transform: scale(1) translate(0, 0);
+    opacity: 1;
   }
   100% {
     transform: scale(1.13) translate(-1%, 1%);
+    opacity: 1;
   }
 }
 
@@ -228,6 +285,8 @@ const slideStyle = (index: number) => {
 .slide.previous {
   opacity: 0;
   z-index: 1;
+  /* Zostaw zoom z poprzedniej animacji */
+  transform: inherit;
 }
 
 .shadow-overlay {

@@ -24,32 +24,28 @@ interface Props {
 
 const props = defineProps<Props>();
 
-const valueLower = computed(() => props.value.toLowerCase());
+const valueLower = computed(() => (props.value || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, ''));
 
-const isRouterLink = computed(() => {
-  return ['regulamin', 'domek', 'gościniec', 'pokoje'].includes(valueLower.value);
-});
-
+// robust route detection by substring (handles literówki i dodatkowe spacje)
 const routePath = computed(() => {
-  switch (valueLower.value) {
-    case 'regulamin':
-      return '/regulamin';
-    case 'domek':
-      return '/domek';
-    case 'gościniec':
-      return '/caly-teren';
-    case 'pokoje':
-      return '/pokoje';
-    default:
-      return '/';
-  }
+  const v = valueLower.value.replace(/\s+/g, ' ').trim();
+
+  if (v.includes('regulamin') || v.includes('regukamin')) return '/regulamin';
+  if (v.includes('domek')) return '/domek';
+  if (v.includes('go') && v.includes('sciniec')) return '/caly-teren'; // fuzzy check for gościniec variants
+  if (v.includes('gosciniec') || v.includes('goscyniec')) return '/caly-teren';
+  if (v.includes('pokoje')) return '/pokoje';
+  if (v.includes('blog')) return '/blog';
+
+  return '/';
 });
+
+const isRouterLink = computed(() => routePath.value !== '/');
 
 const anchorPath = computed(() => {
-  if (valueLower.value === 'okolica') {
-    return '#udogodnienia';
-  }
-  return `#${valueLower.value}`;
+  const v = valueLower.value.replace(/\s+/g, ' ').trim();
+  if (v === 'okolica') return '#udogodnienia';
+  return `#${v.replace(/\s+/g, '-')}`;
 });
 </script>
 

@@ -18,7 +18,7 @@
               To miejsce, gdzie natura spotyka się z domowym ciepłem, 
               tworząc niezapomnianą atmosferę relaksu dla całej rodziny.
             </p>
-          </div>
+        </div>
         </div>
 
         <!-- Centralne zdjęcie w tle z efektem parallax -->
@@ -325,9 +325,9 @@ onMounted(() => {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 70%;
-  max-width: 900px;
-  height: 500px;
+  width: 90%;
+  max-width: 1200px;
+  height: 1000px;
   z-index: 0;
   pointer-events: none;
   animation: floatBackground 6s ease-in-out infinite;

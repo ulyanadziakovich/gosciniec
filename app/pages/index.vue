@@ -4,6 +4,7 @@
     <SectionsHero />
     <SectionsOptions />
     <SectionsUdogodnienia />
+    <LazySectionsTrailsMap />
     <SectionsAboutUs />
     <SectionsMap />
     <SectionsKontakt />
