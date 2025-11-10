@@ -1,5 +1,6 @@
 <template>
   <section id="pokoje" class="options-section">
+    <FallingLeaves :count="25" color="#D4A574" />
     <BookingFilter @filter-options="handleFilterOptions" />
 
     <!-- Powiadomienie o cenach -->
@@ -14,6 +15,18 @@
             Ceny różnią się w zależności od terminu i świąt.<br />
             Zadzwoń do nas, a podamy dokładną cenę dla wybranego okresu!
           </p>
+          <div class="booking-cta">
+            <p class="booking-text">Albo zarezerwuj swój pobyt na Booking już teraz</p>
+            <a
+              href="https://www.booking.com/hotel/pl/gosciniec-pod-malym-krolem.pl.html?aid=318615&label=Polish_Poland_PL_PL_28510505545-Pp48DVUKbUvqbN_uj5E1CwS217288760776%3Apl%3Ata%3Ap1%3Ap2%3Aac%3Aap%3Aneg%3Afi55769350487%3Atidsa-300772407013%3Alp1011468%3Ali%3Adec%3Adm&sid=94df31e1c787121eb06586fc680b2382&checkin=2025-12-01&checkout=2025-12-02&dest_id=-534141&dest_type=city&dist=0&group_adults=2&group_children=0&hapos=1&hpos=1&no_rooms=1&req_adults=2&req_children=0&room1=A%2CA&sb_price_type=total&soh=1&sr_order=popularity&srepoch=1762775957&srpvid=c62b544744a3034f&type=total&ucfs=1&#tab-main"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="booking-btn"
+            >
+              <span class="booking-btn-text">Rezerwuj na Booking.com</span>
+              <span class="booking-btn-arrow">→</span>
+            </a>
+          </div>
         </div>
       </div>
     </Transition>
@@ -128,22 +141,22 @@ interface Room {
 
 const opcje: Option[] = [
   {
-    imgSrc: 'https://www.dropbox.com/scl/fi/juxbmnwnwghbxbhg4vc4x/domopcjesize.jpeg?rlkey=84dag4b83pgdttpuecycqja97&st=lqtyljzm&dl=0&raw=1',
-    hoverSrc: 'https://www.dropbox.com/scl/fi/pukejeulsl2y8ei6f5t74/domhover.jpg?rlkey=4qjicicif7ulrbt635jj7afgd&st=cvk48nrf&dl=0&raw=1',
+    imgSrc: '/images/options/dom-main.jpeg',
+    hoverSrc: '/images/options/dom-hover.jpg',
     alt: '',
     hoverText: 'Wynajmij cały domek',
     route: '/domek'
   },
   {
-    imgSrc: 'https://www.dropbox.com/scl/fi/654a78kjfunzg20wtv7ew/gosciniecfonsize.jpeg?rlkey=zt1iajgdafikc5k6syjdskvqg&st=bpeg465a&dl=0&raw=1',
-    hoverSrc: 'https://www.dropbox.com/scl/fi/uxf1lkq3910doqskvlstz/pokojehover.jpg?rlkey=ri2c3zjy0cqv31nyfks9t3okt&st=5va5cg89&dl=0&raw=1',
+    imgSrc: '/images/options/gosciniec-main.jpeg',
+    hoverSrc: '/images/options/gosciniec-hover.jpg',
     alt: '',
     hoverText: 'Sprawdz dostępnę pokoje w gościńcu',
     route: '/pokoje'
   },
   {
-    imgSrc: 'https://www.dropbox.com/scl/fi/zsuk6vsnizn6edliv1w5a/calyterenopcjesize.jpeg?rlkey=7ouphg9qxvyslqk79nrgtu1ev&st=od3tih6z&dl=0&raw=1',
-    hoverSrc: 'https://www.dropbox.com/scl/fi/rcxi2pfde4j6abj5xf4h9/stawsize.jpeg?rlkey=hiwcy0naribg093z8r2bx3pmw&st=fj6z1180&dl=0&raw=1',
+    imgSrc: '/images/options/caly-teren-main.jpeg',
+    hoverSrc: '/images/options/caly-teren-hover.jpeg',
     alt: '',
     hoverText: 'Wynajmij cały teren z domkiem i gościńcem.',
     route: '/caly-teren'
@@ -309,6 +322,8 @@ onMounted(() => {
 <style scoped>
 .options-section {
   width: 100%;
+  position: relative;
+  overflow: hidden;
 }
 
 .options-wrapper {
@@ -319,6 +334,7 @@ onMounted(() => {
   display: flex;
   flex-direction: column;
   max-height: 720px;
+  z-index: 2;
 }
 
 .background-images {
@@ -422,6 +438,7 @@ onMounted(() => {
   box-shadow: 0 6px 25px rgba(139, 90, 43, 0.2);
   padding: 1.5rem 3rem 1.5rem 2rem;
   animation: slideIn 0.5s ease-out;
+  z-index: 2;
 }
 
 .close-btn {
@@ -466,7 +483,54 @@ onMounted(() => {
   color: #5D4E37;
   font-size: 1.1rem;
   line-height: 1.6;
-  margin: 0;
+  margin: 0 0 1.5rem 0;
+}
+
+.booking-cta {
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(139, 90, 43, 0.2);
+}
+
+.booking-text {
+  color: #5D4E37;
+  font-size: 1rem;
+  margin: 0 0 1rem 0;
+  font-weight: 500;
+}
+
+.booking-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1.5rem;
+  background: linear-gradient(135deg, #0071c2 0%, #003580 100%);
+  color: white;
+  text-decoration: none;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0, 53, 128, 0.3);
+}
+
+.booking-btn:hover {
+  background: linear-gradient(135deg, #005a9c 0%, #002a5c 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 53, 128, 0.4);
+}
+
+.booking-btn-text {
+  white-space: nowrap;
+}
+
+.booking-btn-arrow {
+  font-size: 1.3rem;
+  transition: transform 0.3s ease;
+}
+
+.booking-btn:hover .booking-btn-arrow {
+  transform: translateX(4px);
 }
 
 .slide-fade-enter-active {
@@ -512,6 +576,20 @@ onMounted(() => {
     font-size: 1rem;
   }
 
+  .booking-text {
+    font-size: 0.9rem;
+  }
+
+  .booking-btn {
+    padding: 0.6rem 1.2rem;
+    font-size: 0.9rem;
+    gap: 0.5rem;
+  }
+
+  .booking-btn-arrow {
+    font-size: 1.1rem;
+  }
+
   .close-btn {
     top: 0.75rem;
     right: 0.75rem;
@@ -527,11 +605,15 @@ onMounted(() => {
   background: linear-gradient(to bottom, rgba(139, 90, 43, 0.05), rgba(139, 90, 43, 0.02));
   padding: 3rem 1rem;
   min-height: 60vh;
+  position: relative;
+  z-index: 2;
 }
 
 .rooms-container {
   max-width: 1200px;
   margin: 0 auto;
+  position: relative;
+  z-index: 2;
 }
 
 .rooms-title {
@@ -635,6 +717,8 @@ onMounted(() => {
   background: linear-gradient(to bottom, rgba(244, 240, 212, 0.2), rgba(244, 240, 212, 0.05));
   padding: 1.5rem 2rem;
   border-top: 1px solid rgba(212, 165, 116, 0.2);
+  position: relative;
+  z-index: 2;
 }
 
 .info-container {

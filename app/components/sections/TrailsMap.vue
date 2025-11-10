@@ -1,6 +1,7 @@
 <!-- components/sections/TrailsMap.vue -->
 <template>
   <section class="trails-section">
+    <FallingLeaves :count="30" color="#8B6F47" />
     <div class="trails-header">
       <h2>🥾 Najlepsze szlaki w okolicy</h2>
       <p>Odkryj piękno Bieszczadzkiego Parku Narodowego</p>
@@ -324,14 +325,18 @@ onUnmounted(() => {
 <style scoped>
 .trails-section {
   width: 100%;
-  padding: 4rem 0;
+  padding: 4rem 2rem;
   background-color: #f5f1e8;
+  position: relative;
+  overflow: hidden;
 }
 
 .trails-header {
   text-align: center;
   margin-bottom: 3rem;
   padding: 0 2rem;
+  position: relative;
+  z-index: 2;
 }
 
 .trails-header h2 {
@@ -351,8 +356,11 @@ onUnmounted(() => {
   grid-template-columns: 500px 1fr;
   background: white;
   box-shadow: 0 4px 20px rgba(139, 111, 71, 0.15);
-  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
   height: 800px;
+  position: relative;
+  z-index: 2;
 }
 
 /* Lista szlaków */

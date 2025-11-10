@@ -97,10 +97,10 @@
               ‹
             </button>
             
-            <div class="modal-body">
+            <div class="modal-body" v-if="images[currentImageIndex]">
               <div class="modal-image-wrapper">
-                <img 
-                  :src="images[currentImageIndex].src" 
+                <img
+                  :src="images[currentImageIndex].src"
                   :alt="images[currentImageIndex].alt"
                   class="modal-image"
                 />
@@ -294,7 +294,11 @@ onMounted(() => {
 
 <style scoped>
 .udogodnienia-wrapper {
-  background: linear-gradient(135deg, #f5f5f0 0%, #faf8f0 50%, #f0ebe0 100%);
+  background-image: url('/images/options/caly-teren-hover.jpeg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
   padding: 5rem 2rem;
   width: 100%;
   position: relative;
@@ -308,10 +312,9 @@ onMounted(() => {
   left: 0;
   width: 100%;
   height: 100%;
-  background: 
-    radial-gradient(circle at 20% 30%, rgba(212, 165, 116, 0.08) 0%, transparent 50%),
-    radial-gradient(circle at 80% 70%, rgba(139, 90, 43, 0.06) 0%, transparent 50%);
+  background: rgba(245, 245, 240, 0.75);
   pointer-events: none;
+  z-index: 0;
 }
 
 .udogodnienia-content {

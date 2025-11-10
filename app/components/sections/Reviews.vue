@@ -5,7 +5,12 @@
     <div class="reviews-container">
       <div class="section-header">
         <h2 class="section-title">Co mówią o nas goście</h2>
-        <div class="booking-badge">
+        <a
+          href="https://www.booking.com/hotel/pl/gosciniec-pod-malym-krolem.pl.html?aid=318615&label=Polish_Poland_PL_PL_28510505545-Pp48DVUKbUvqbN_uj5E1CwS217288760776%3Apl%3Ata%3Ap1%3Ap2%3Aac%3Aap%3Aneg%3Afi55769350487%3Atidsa-300772407013%3Alp1011468%3Ali%3Adec%3Adm&sid=94df31e1c787121eb06586fc680b2382&checkin=2025-12-01&checkout=2025-12-02&dest_id=-534141&dest_type=city&dist=0&group_adults=2&group_children=0&hapos=1&hpos=1&no_rooms=1&req_adults=2&req_children=0&room1=A%2CA&sb_price_type=total&soh=1&sr_order=popularity&srepoch=1762775957&srpvid=c62b544744a3034f&type=total&ucfs=1&#tab-reviews"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="booking-badge"
+        >
           <img src="https://cf.bstatic.com/static/img/booking_logo_knowledge_graph/247454a990efac1952e44dddbf30c58677aa0fd8.png" alt="Booking.com" class="booking-logo" />
           <div class="rating-summary">
             <span class="rating-score">{{ overallRating }}</span>
@@ -14,7 +19,11 @@
               <span class="review-count">{{ reviews.length }} opinii</span>
             </div>
           </div>
-        </div>
+          <div class="see-all-reviews">
+            <span class="see-all-text">Zobacz wszystkie opinie</span>
+            <span class="arrow-icon">→</span>
+          </div>
+        </a>
       </div>
 
       <div class="reviews-carousel">
@@ -229,6 +238,15 @@ const scrollRight = () => {
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
   max-width: 500px;
   margin: 0 auto;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.booking-badge:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 30px rgba(0, 0, 0, 0.15);
+  background: #f8f8f8;
 }
 
 .booking-logo {
@@ -267,6 +285,38 @@ const scrollRight = () => {
 .review-count {
   color: #666;
   font-size: 0.9rem;
+}
+
+.see-all-reviews {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 1.2rem;
+  background: linear-gradient(135deg, #0071c2 0%, #003580 100%);
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.booking-badge:hover .see-all-reviews {
+  background: linear-gradient(135deg, #005a9c 0%, #002a5c 100%);
+  transform: translateX(3px);
+}
+
+.see-all-text {
+  color: white;
+  font-weight: 600;
+  font-size: 0.95rem;
+  white-space: nowrap;
+}
+
+.arrow-icon {
+  color: white;
+  font-size: 1.2rem;
+  transition: transform 0.3s ease;
+}
+
+.booking-badge:hover .arrow-icon {
+  transform: translateX(3px);
 }
 
 .reviews-carousel {
@@ -477,6 +527,18 @@ const scrollRight = () => {
     flex-direction: column;
     gap: 1rem;
     padding: 1rem;
+  }
+
+  .see-all-reviews {
+    padding: 0.5rem 1rem;
+  }
+
+  .see-all-text {
+    font-size: 0.85rem;
+  }
+
+  .arrow-icon {
+    font-size: 1rem;
   }
 
   .carousel-btn {
