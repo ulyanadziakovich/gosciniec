@@ -1,15 +1,8 @@
 <template>
-  <NuxtLink
-    v-if="isRouterLink"
-    :to="routePath"
-    class="nav-link-wrapper"
-  >
-    {{ value }}
-  </NuxtLink>
   <a
-    v-else
-    :href="anchorPath"
+    :href="linkHref"
     class="nav-link-wrapper"
+    @click="handleClick"
   >
     {{ value }}
   </a>
@@ -17,36 +10,57 @@
 
 <script setup lang="ts">
 import { computed } from 'vue';
+import { useRouter } from 'vue-router';
 
 interface Props {
   value: string;
 }
 
 const props = defineProps<Props>();
+const router = useRouter();
 
 const valueLower = computed(() => (props.value || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, ''));
 
-// robust route detection by substring (handles literówki i dodatkowe spacje)
-const routePath = computed(() => {
+// Określ typ linku i jego ścieżkę
+const linkData = computed(() => {
   const v = valueLower.value.replace(/\s+/g, ' ').trim();
 
-  if (v.includes('regulamin') || v.includes('regukamin')) return '/regulamin';
-  if (v.includes('domek')) return '/domek';
-  if (v.includes('go') && v.includes('sciniec')) return '/caly-teren'; // fuzzy check for gościniec variants
-  if (v.includes('gosciniec') || v.includes('goscyniec')) return '/caly-teren';
-  if (v.includes('pokoje')) return '/pokoje';
-  if (v.includes('blog')) return '/blog';
+  if (v.includes('regulamin') || v.includes('regukamin')) return { type: 'page', path: '/regulamin' };
+  if (v.includes('domek')) return { type: 'page', path: '/domek' };
+  if (v.includes('go') && v.includes('sciniec')) return { type: 'page', path: '/caly-teren' };
+  if (v.includes('gosciniec') || v.includes('goscyniec')) return { type: 'page', path: '/caly-teren' };
+  if (v.includes('pokoje')) return { type: 'page', path: '/pokoje' };
+  if (v.includes('blog')) return { type: 'page', path: '/blog' };
 
-  return '/';
+  // To jest link do sekcji
+  const hash = v === 'okolica' ? 'udogodnienia' : v.replace(/\s+/g, '-');
+  return { type: 'section', hash };
 });
 
-const isRouterLink = computed(() => routePath.value !== '/');
-
-const anchorPath = computed(() => {
-  const v = valueLower.value.replace(/\s+/g, ' ').trim();
-  if (v === 'okolica') return '#udogodnienia';
-  return `#${v.replace(/\s+/g, '-')}`;
+const linkHref = computed(() => {
+  if (linkData.value.type === 'page') {
+    return linkData.value.path;
+  }
+  return `/#${linkData.value.hash}`;
 });
+
+const handleClick = (e: MouseEvent) => {
+  console.log('Link clicked:', linkData.value);
+
+  if (linkData.value.type === 'page' && linkData.value.path) {
+    // Link do podstrony - użyj routera
+    e.preventDefault();
+    router.push(linkData.value.path);
+  } else if (linkData.value.type === 'section' && linkData.value.hash) {
+    // Link do sekcji - użyj window.location.href
+    e.preventDefault();
+    const hash = linkData.value.hash;
+    console.log('Navigating to section:', hash);
+
+    // Pełne przeładowanie strony z hashem
+    window.location.href = `/#${hash}`;
+  }
+};
 </script>
 
 <style scoped>
@@ -62,5 +76,6 @@ const anchorPath = computed(() => {
   height: auto;
   white-space: normal;
   text-shadow: 2px 2px 4px #af4c1e, 3px 3px 6px #000000;
+  pointer-events: auto;
 }
 </style>

@@ -1,5 +1,6 @@
 <template>
   <section class="map-section">
+    <FallingLeaves :count="12" color="#b8956a" />
     <div class="container">
       <div class="content-wrapper">
         
@@ -30,6 +31,8 @@
 .map-section {
   padding: 80px 20px;
   background: linear-gradient(135deg, #ffffff 0%, #fafafa 100%);
+  position: relative;
+  overflow: hidden;
 }
 .container {
   max-width: 1400px;

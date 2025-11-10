@@ -68,6 +68,39 @@
         </div>
       </div>
     </div>
+
+    <!-- Dodatkowe informacje - dzieci i zwierzęta -->
+    <div class="additional-info">
+      <div class="info-container">
+        <div class="info-card">
+          <div class="info-icon children-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+            </svg>
+          </div>
+          <div class="info-content">
+            <h3 class="info-title">Dzieci do 3. roku życia</h3>
+            <p class="info-text">Bezpłatnie</p>
+          </div>
+        </div>
+
+        <div class="info-card">
+          <div class="info-icon pet-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+              <circle cx="4.5" cy="9.5" r="2.5"/>
+              <circle cx="9" cy="5.5" r="2.5"/>
+              <circle cx="15" cy="5.5" r="2.5"/>
+              <circle cx="19.5" cy="9.5" r="2.5"/>
+              <path d="M17.34 14.86c-.87-1.02-1.6-1.89-2.48-2.91-.46-.54-1.05-1.08-1.75-1.32-.11-.04-.22-.07-.33-.09-.25-.04-.52-.04-.78-.04s-.53 0-.79.05c-.11.02-.22.05-.33.09-.7.24-1.28.78-1.75 1.32-.87 1.02-1.6 1.89-2.48 2.91-1.31 1.31-2.92 2.76-2.62 4.79.29 1.02 1.02 2.03 2.33 2.32.73.15 3.06-.44 5.54-.44h.18c2.48 0 4.81.58 5.54.44 1.31-.29 2.04-1.31 2.33-2.32.31-2.04-1.3-3.49-2.61-4.8z"/>
+            </svg>
+          </div>
+          <div class="info-content">
+            <h3 class="info-title">Akceptujemy zwierzęta</h3>
+            <p class="info-text">Dodatkowa opłata</p>
+          </div>
+        </div>
+      </div>
+    </div>
   </section>
 </template>
 
@@ -593,6 +626,126 @@ onMounted(() => {
 
   .rooms-list-section {
     padding: 2rem 1rem;
+  }
+}
+
+/* Additional info section - dzieci i zwierzęta */
+.additional-info {
+  width: 100%;
+  background: linear-gradient(to bottom, rgba(244, 240, 212, 0.2), rgba(244, 240, 212, 0.05));
+  padding: 1.5rem 2rem;
+  border-top: 1px solid rgba(212, 165, 116, 0.2);
+}
+
+.info-container {
+  max-width: 800px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 3rem;
+}
+
+.info-card {
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid #D4A574;
+  border-radius: 10px;
+  padding: 1rem 1.25rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  box-shadow: 0 2px 10px rgba(139, 90, 43, 0.1);
+  transition: all 0.3s ease;
+}
+
+.info-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 15px rgba(139, 90, 43, 0.2);
+  border-color: #8B5A2B;
+}
+
+.info-icon {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease;
+}
+
+.info-card:hover .info-icon {
+  transform: scale(1.08);
+}
+
+.children-icon {
+  background: linear-gradient(135deg, #FFE5B4, #FFD700);
+  color: #8B5A2B;
+}
+
+.pet-icon {
+  background: linear-gradient(135deg, #D4A574, #C19A6B);
+  color: #5D4E37;
+}
+
+.info-icon svg {
+  width: 26px;
+  height: 26px;
+}
+
+.info-content {
+  flex: 1;
+}
+
+.info-title {
+  font-family: Georgia, serif;
+  font-size: 0.95rem;
+  color: #5D4E37;
+  margin: 0 0 0.25rem 0;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.info-text {
+  font-size: 0.85rem;
+  color: #8B5A2B;
+  margin: 0;
+  font-weight: 600;
+}
+
+@media (max-width: 768px) {
+  .additional-info {
+    padding: 1.25rem 1rem;
+  }
+
+  .info-container {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    max-width: 400px;
+  }
+
+  .info-card {
+    padding: 0.875rem 1rem;
+    gap: 0.875rem;
+  }
+
+  .info-icon {
+    width: 40px;
+    height: 40px;
+  }
+
+  .info-icon svg {
+    width: 24px;
+    height: 24px;
+  }
+
+  .info-title {
+    font-size: 0.9rem;
+  }
+
+  .info-text {
+    font-size: 0.8rem;
   }
 }
 </style>

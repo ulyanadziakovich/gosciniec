@@ -1,29 +1,36 @@
 <template>
   <div class="hero-wrapper">
-    <!-- PRIORITY: Pierwsze zdjęcie z najwyższym priorytetem -->
-    <link rel="preload" as="image" :href="images[0]" />
-    
+    <!-- Preload pierwszego obrazu z najwyższym priorytetem -->
+    <NuxtImg
+      preload
+      src="/images/hero/gosciniechero.jpeg"
+      alt=""
+      class="preload-first"
+      fetchpriority="high"
+      @load="onImageLoad(0)"
+    />
+
     <!-- Preload pozostałych obrazów -->
     <div class="preload-container">
-      <img 
-        v-for="(image, index) in images" 
-        :key="`preload-${index}`"
-        :src="image" 
+      <NuxtImg
+        v-for="(image, index) in images.slice(1)"
+        :key="`preload-${index + 1}`"
+        :src="image"
         :alt="''"
-        :fetchpriority="index === 0 ? 'high' : 'low'"
-        @load="onImageLoad(index)"
+        fetchpriority="low"
+        @load="onImageLoad(index + 1)"
       />
     </div>
-    
+
     <div class="slide-container">
       <div
         v-for="(image, index) in images"
         :key="index"
         class="slide"
-        :class="{ 
-          'active': index === current, 
+        :class="{
+          'active': index === current,
           'previous': index === previous,
-          'ken-burns': index === current 
+          'ken-burns': index === current
         }"
         :style="slideStyle(index)"
       />
@@ -77,9 +84,9 @@
 import { ref, onMounted, onUnmounted } from 'vue';
 
 const images = [
-  'https://www.dropbox.com/scl/fi/i6brepybzkj5dr73lpg05/gosciniechero.jpeg?rlkey=d0r09tiq9yrb33dyy9h55sszj&st=u8287oit&dl=0&raw=1',
-  'https://www.dropbox.com/scl/fi/w6ot4v6dm7jamg14ij24x/calyterenhero.jpeg?rlkey=n1s9hgtggd2d3sgz19e9jo3qd&st=2fc2ynyj&dl=0&raw=1',
-  'https://www.dropbox.com/scl/fi/7zenv6axwqn4f43vfww1z/domhero.jpeg?rlkey=42htkx11nqfis5tavkd3j0jw7&st=0m3d8rjw&dl=0&raw=1',
+  '/images/hero/gosciniechero.jpeg',
+  '/images/hero/calyterenhero.jpeg',
+  '/images/hero/domhero.jpeg',
 ];
 
 const current = ref(0);
@@ -87,9 +94,9 @@ const previous = ref(-1);
 const imagesLoaded = ref<boolean[]>(new Array(images.length).fill(false));
 const allImagesLoaded = ref(false);
 
-let interval: NodeJS.Timeout | null = null;
+let interval: ReturnType<typeof setInterval> | null = null;
 
-// Dodaj meta tag dla preload pierwszego obrazu
+// Preload pierwszego obrazu dla szybszego ładowania
 useHead({
   link: [
     {
@@ -168,6 +175,16 @@ const slideStyle = (index: number) => {
   height: 1px;
 }
 
+/* Preload pierwszego obrazu - ukryty ale priorytetowy */
+.preload-first {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+  z-index: -1;
+}
+
 .hero-wrapper {
   position: relative;
   display: flex;
@@ -210,8 +227,8 @@ const slideStyle = (index: number) => {
 
 /* Pierwsze zdjęcie - natychmiastowy start */
 .slide:first-child {
-  /* Pierwsze zdjęcie jest od razu widoczne */
-  background-image: url('https://www.dropbox.com/scl/fi/i6brepybzkj5dr73lpg05/gosciniechero.jpeg?rlkey=d0r09tiq9yrb33dyy9h55sszj&st=u8287oit&dl=0&raw=1');
+  /* Pierwsze zdjęcie jest od razu widoczne - lokalny plik */
+  background-image: url('/images/hero/gosciniechero.jpeg');
 }
 
 /* Efekt Ken Burns - zoom zostaje na końcu */

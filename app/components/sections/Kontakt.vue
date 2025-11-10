@@ -1,6 +1,8 @@
 <template>
   <div id="kontakt" class="kontakt-wrapper">
-    
+
+    <FallingLeaves :count="15" color="#8b6f47" />
+
     <div class="contact-section">
       <div class="contact-container">
         

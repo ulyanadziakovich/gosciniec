@@ -1,11 +1,15 @@
 <template>
-  <nav class="nav-wrapper">
+  <nav class="nav-wrapper" :class="{ scrolled: isScrolled }">
     <div class="logo-wrapper" :class="{ show: showLogo }">
       <Logo />
     </div>
 
-    <div class="mobile-nav-wrapper">
-      <button class="hamburger-button" @click="toggleMobileMenu">
+    <div class="mobile-nav-wrapper" style="pointer-events: auto !important; z-index: 99999 !important; position: relative !important;">
+      <button
+        class="hamburger-button"
+        @click.stop="toggleMobileMenu"
+        style="pointer-events: auto !important; cursor: pointer !important; z-index: 99999 !important; position: relative !important;"
+      >
         <span :class="{ open: isMobileMenuOpen }" />
         <span :class="{ open: isMobileMenuOpen }" />
         <span :class="{ open: isMobileMenuOpen }" />
@@ -39,7 +43,7 @@
     </div>
 
     <div class="mobile-menu" :class="{ 'is-open': isMobileMenuOpen }">
-      <div class="mobile-nav-links-wrapper">
+      <div class="mobile-nav-links-wrapper" @click="toggleMobileMenu">
         <h1 v-for="item in leftMenuItems" :key="'left-' + item" class="hero-title">
           <NavLink :value="item" />
         </h1>
@@ -55,16 +59,22 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted } from 'vue';
+import { ref, onMounted, onUnmounted, nextTick } from 'vue';
 
 const isMobileMenuOpen = ref(false);
 const showLogo = ref(false);
+const isScrolled = ref(false);
 
 const leftMenuItems = ['Pokoje', 'Domek', 'Regulamin'];
 const rightMenuItems = ['Blog', 'Okolica', 'Kontakt'];
 
-const toggleMobileMenu = () => {
+const toggleMobileMenu = async () => {
+  console.log('HAMBURGER CLICKED!!!');
   isMobileMenuOpen.value = !isMobileMenuOpen.value;
+  console.log('Mobile menu toggled:', isMobileMenuOpen.value);
+
+  await nextTick();
+  console.log('DOM updated, menu should be:', isMobileMenuOpen.value ? 'open' : 'closed');
 };
 
 const handleScroll = () => {
@@ -75,8 +85,10 @@ const handleScroll = () => {
 
   if (window.scrollY > heroTitleHeight) {
     showLogo.value = true;
+    isScrolled.value = true;
   } else {
     showLogo.value = false;
+    isScrolled.value = false;
   }
 };
 
@@ -103,8 +115,26 @@ onUnmounted(() => {
   gap: 20px;
   padding: 10px 20px;
   border-radius: 5px;
-  z-index: 1000;
+  z-index: 99999;
   box-sizing: border-box;
+  pointer-events: auto;
+}
+
+.nav-wrapper::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  pointer-events: none;
+  z-index: -1;
+  transition: background 0.3s ease;
+}
+
+.nav-wrapper.scrolled::before {
+  background: rgba(93, 78, 55, 0.95);
 }
 
 @media (max-width: 768px) {
@@ -126,8 +156,10 @@ onUnmounted(() => {
     display: flex;
     flex-direction: row-reverse;
     align-items: center;
-    z-index: 101;
+    z-index: 10001;
     justify-content: space-between;
+    pointer-events: auto;
+    position: relative;
   }
 }
 
@@ -167,7 +199,8 @@ onUnmounted(() => {
   gap: 30px;
   margin-left: 100px;
   position: relative;
-  z-index: 10;
+  z-index: 100000;
+  pointer-events: auto !important;
 }
 
 @media (max-width: 768px) {
@@ -180,6 +213,9 @@ onUnmounted(() => {
   display: flex;
   align-items: center;
   gap: 30px;
+  position: relative;
+  z-index: 100000;
+  pointer-events: auto !important;
 }
 
 @media (max-width: 768px) {
@@ -194,13 +230,15 @@ onUnmounted(() => {
   border: none;
   cursor: pointer;
   padding: 8px;
-  z-index: 1001;
+  z-index: 10002;
+  pointer-events: auto;
 }
 
 @media (max-width: 768px) {
   .hamburger-button {
     display: block;
     position: relative;
+    z-index: 10002;
   }
 }
 
@@ -247,8 +285,9 @@ onUnmounted(() => {
   }
 
   .mobile-menu.is-open {
-    z-index: 100;
-    height: 100%;
+    z-index: 10000 !important;
+    height: 100vh !important;
+    display: flex !important;
   }
 }
 
@@ -259,6 +298,7 @@ onUnmounted(() => {
   padding: 55px 15px;
   background-color: rgba(0, 0, 0, 0.3);
   height: 100%;
+  pointer-events: auto;
 }
 
 .hero-title {
@@ -312,7 +352,8 @@ onUnmounted(() => {
     font-size: 1.3rem;
     text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
     cursor: pointer;
-    z-index: 101;
+    z-index: 10002;
+    pointer-events: auto;
   }
 
   .call-button:hover {
