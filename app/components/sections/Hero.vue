@@ -35,6 +35,10 @@
         :style="slideStyle(index)"
       />
     </div>
+
+    <!-- Falling Snowflakes -->
+    <FallingLeaves :count="20" color="#ffffff" />
+
     <div class="shadow-overlay">
       <h1 class="hero-title animate-title">
         Gościniec pod Małym <span class="crown">K</span>rólem

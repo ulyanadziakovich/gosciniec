@@ -1,7 +1,7 @@
 <template>
   <div id="kontakt" class="kontakt-wrapper">
 
-    <FallingLeaves :count="15" color="#8b6f47" />
+    <FallingLeaves :count="15" color="#A5B4FC" />
 
     <div class="contact-section">
       <div class="contact-container">
@@ -69,7 +69,7 @@
 
 
 .contact-section {
-  background: linear-gradient(135deg, #3D2817, #2A1810);
+  background: linear-gradient(135deg, #1e293b, #0f172a);
   padding: 1.5rem 2rem;
   width: 100%;
 }
@@ -91,7 +91,7 @@
 .info-label {
   font-family: Georgia, serif;
   font-size: 0.75rem;
-  color: #D4A574;
+  color: #93C5FD;
   margin: 0 0 0.5rem 0;
   text-transform: uppercase;
   letter-spacing: 0.5px;
@@ -101,14 +101,14 @@
 .info-value {
   font-family: Georgia, serif;
   font-size: 0.85rem;
-  color: #E8D4B8;
+  color: #E0E7FF;
   text-decoration: none;
   transition: color 0.3s ease;
   display: block;
 }
 
 .info-value:hover {
-  color: #F5E6D3;
+  color: #FFFFFF;
 }
 
 
@@ -129,13 +129,13 @@
   font-family: Georgia, serif;
   font-size: 0.8rem;
   font-weight: 600;
-  color: #D4A574;
+  color: #93C5FD;
   margin: 0 0 0.25rem 0;
 }
 
 .location-address {
   font-size: 0.75rem;
-  color: #E8D4B8;
+  color: #E0E7FF;
   margin: 0;
   line-height: 1.3;
 }
@@ -156,7 +156,7 @@
   font-family: Georgia, serif;
   font-size: 1.1rem;
   font-weight: 700;
-  color: #E8D4B8;
+  color: #E0E7FF;
   text-decoration: none;
   transition: all 0.3s ease;
   letter-spacing: 0.5px;
@@ -165,7 +165,7 @@
 }
 
 .phone-number:hover {
-  color: #F5E6D3;
+  color: #FFFFFF;
   transform: scale(1.03);
 }
 
@@ -181,21 +181,21 @@
   z-index: 1001;
   background: linear-gradient(
     135deg,
-    rgba(244, 240, 212, 0.98) 0%,
-    rgba(255, 255, 255, 0.98) 100%
+    rgba(147, 197, 253, 0.98) 0%,
+    rgba(191, 219, 254, 0.98) 100%
   );
   padding: 0.5rem 1rem;
   border-radius: 8px;
   font-family: Georgia, serif;
   font-size: 0.9rem;
-  color: #af4c1e;
+  color: #1e40af;
   font-weight: 700;
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.15);
   white-space: nowrap;
   opacity: 1;
   transition: all 0.4s ease;
-  box-shadow: -3px 0 8px rgba(175, 76, 30, 0.15);
-  border: 1px solid rgba(175, 76, 30, 0.2);
+  box-shadow: -3px 0 8px rgba(30, 64, 175, 0.15);
+  border: 1px solid rgba(30, 64, 175, 0.2);
   letter-spacing: 0.3px;
 }
 
@@ -212,14 +212,14 @@
   transition: all 0.5s ease;
   text-decoration: none;
   width: 220px;
-  border: 1px solid rgba(175, 76, 30, 0.15);
+  border: 1px solid rgba(147, 197, 253, 0.3);
   border-right: none;
 }
 
 .garden-logo:hover {
   right: 0;
-  background: white;
-  box-shadow: -6px 0 20px rgba(175, 76, 30, 0.3);
+  background: linear-gradient(135deg, rgba(224, 231, 255, 0.98), rgba(255, 255, 255, 0.98));
+  box-shadow: -6px 0 20px rgba(30, 64, 175, 0.3);
   transform: translateY(-50%) scale(1.02);
 }
 
@@ -240,7 +240,7 @@
 .garden-logo p {
   font-family: Georgia, serif;
   font-size: 1.1rem;
-  color: #af4c1e;
+  color: #1e40af;
   font-weight: 700;
   margin-bottom: 0.8rem;
   text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);

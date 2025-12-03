@@ -82,7 +82,7 @@
       </div>
     </div>
 
-    <!-- Dodatkowe informacje - dzieci i zwierzęta -->
+    <!-- Dodatkowe informacje -->
     <div class="additional-info">
       <div class="info-container">
         <div class="info-card">
@@ -110,6 +110,79 @@
           <div class="info-content">
             <h3 class="info-title">Akceptujemy zwierzęta</h3>
             <p class="info-text">Dodatkowa opłata</p>
+          </div>
+        </div>
+
+        <div class="info-card">
+          <div class="info-icon parking-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4" />
+            </svg>
+          </div>
+          <div class="info-content">
+            <h3 class="info-title">Darmowy parking</h3>
+            <p class="info-text">Na terenie obiektu</p>
+          </div>
+        </div>
+
+        <div class="info-card">
+          <div class="info-icon wifi-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.111 16.404a5.5 5.5 0 017.778 0M12 20h.01m-7.08-7.071c3.904-3.905 10.236-3.905 14.141 0M1.394 9.393c5.857-5.857 15.355-5.857 21.213 0" />
+            </svg>
+          </div>
+          <div class="info-content">
+            <h3 class="info-title">Darmowy Wi-Fi</h3>
+            <p class="info-text">W całym obiekcie</p>
+          </div>
+        </div>
+
+        <div class="info-card">
+          <div class="info-icon hiking-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 21l8-8m0 0l7-7m-7 7h11M4 4h1l2 16" />
+            </svg>
+          </div>
+          <div class="info-content">
+            <h3 class="info-title">Turystyczne szlaki piesze</h3>
+            <p class="info-text">W pobliżu obiektu</p>
+          </div>
+        </div>
+
+        <div class="info-card">
+          <div class="info-icon no-smoking-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636" />
+            </svg>
+          </div>
+          <div class="info-content">
+            <h3 class="info-title">Zakaz palenia</h3>
+            <p class="info-text">Obiekt dla niepalących</p>
+          </div>
+        </div>
+
+        <div class="info-card">
+          <div class="info-icon sauna-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 18.657A8 8 0 016.343 7.343S7 9 9 10c0-2 .5-5 2.986-7C14 5 16.09 5.777 17.656 7.343A7.975 7.975 0 0120 13a7.975 7.975 0 01-2.343 5.657z" />
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.879 16.121A3 3 0 1012.015 11L11 14H9c0 .768.293 1.536.879 2.121z" />
+            </svg>
+          </div>
+          <div class="info-content">
+            <h3 class="info-title">Bania i sauna</h3>
+            <p class="info-text">Za dodatkową opłatą</p>
+          </div>
+        </div>
+
+        <div class="info-card">
+          <div class="info-icon products-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+            </svg>
+          </div>
+          <div class="info-content">
+            <h3 class="info-title">Własne przetwory</h3>
+            <p class="info-text">Dostępne do kupienia</p>
           </div>
         </div>
       </div>
@@ -398,7 +471,7 @@ onMounted(() => {
   font-family: Georgia, serif;
   color: #f4f0d4;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-  background: linear-gradient(to bottom, rgba(139, 90, 43, 0.95), rgba(93, 78, 55, 0.9));
+  background: linear-gradient(to bottom, rgba(30, 58, 138, 0.95), rgba(29, 78, 216, 0.9));
   padding: 0 1.5rem;
   font-size: 1.2rem;
   font-weight: 700;
@@ -407,7 +480,7 @@ onMounted(() => {
   transition: all 0.4s ease;
   pointer-events: none;
   z-index: 1;
-  border-bottom: 3px solid #D4A574;
+  border-bottom: 3px solid #60A5FA;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
   letter-spacing: 0.3px;
   line-height: 1.3;
@@ -711,22 +784,22 @@ onMounted(() => {
   }
 }
 
-/* Additional info section - dzieci i zwierzęta */
+/* Additional info section */
 .additional-info {
   width: 100%;
   background: linear-gradient(to bottom, rgba(244, 240, 212, 0.2), rgba(244, 240, 212, 0.05));
-  padding: 1.5rem 2rem;
+  padding: 2.5rem 2rem;
   border-top: 1px solid rgba(212, 165, 116, 0.2);
   position: relative;
   z-index: 2;
 }
 
 .info-container {
-  max-width: 800px;
+  max-width: 1200px;
   margin: 0 auto;
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 3rem;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
 }
 
 .info-card {
@@ -773,6 +846,36 @@ onMounted(() => {
   color: #5D4E37;
 }
 
+.parking-icon {
+  background: linear-gradient(135deg, #93C5FD, #60A5FA);
+  color: #1e40af;
+}
+
+.wifi-icon {
+  background: linear-gradient(135deg, #86EFAC, #4ADE80);
+  color: #166534;
+}
+
+.hiking-icon {
+  background: linear-gradient(135deg, #FCA5A5, #F87171);
+  color: #991b1b;
+}
+
+.no-smoking-icon {
+  background: linear-gradient(135deg, #CBD5E1, #94A3B8);
+  color: #334155;
+}
+
+.sauna-icon {
+  background: linear-gradient(135deg, #FED7AA, #FB923C);
+  color: #c2410c;
+}
+
+.products-icon {
+  background: linear-gradient(135deg, #A78BFA, #8B5CF6);
+  color: #5b21b6;
+}
+
 .info-icon svg {
   width: 26px;
   height: 26px;
@@ -800,13 +903,13 @@ onMounted(() => {
 
 @media (max-width: 768px) {
   .additional-info {
-    padding: 1.25rem 1rem;
+    padding: 2rem 1rem;
   }
 
   .info-container {
     grid-template-columns: 1fr;
     gap: 1rem;
-    max-width: 400px;
+    max-width: 500px;
   }
 
   .info-card {

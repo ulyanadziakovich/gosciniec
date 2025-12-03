@@ -58,6 +58,88 @@
           właścicielowi, co umożliwi niezwłoczną reakcję.
         </p>
       </div>
+
+      <div class="regulamin-section">
+        <h3>Zakwaterowanie dzieci</h3>
+        <p><strong>Zasady dotyczące pobytu dzieci:</strong></p>
+        <p>• Dzieci w każdym wieku są mile widziane.</p>
+        <p>• Brak ograniczeń wiekowych przy zameldowaniu.</p>
+        <p>
+          • Aby zobaczyć dokładne ceny oraz informacje o liczbie Gości, dodaj do wyszukiwania liczbę oraz wiek dzieci,
+          z którymi podróżujesz.
+        </p>
+
+        <p><strong>Zasady dotyczące łóżeczek dziecięcych i dodatkowych łóżek:</strong></p>
+        <p>• Dzieci w wieku 0–3 lata: dodatkowe łóżko dostępne na życzenie za 30 zł za dziecko, za noc.</p>
+        <p>
+          • Opłaty za dodatkowe łóżka nie są wliczone w cenę całkowitą i należy je uiścić oddzielnie w trakcie
+          pobytu.
+        </p>
+        <p>
+          • Liczba dozwolonych dodatkowych łóżek zależy od wybranej opcji. Sprawdź szczegóły wybranej opcji, aby
+          uzyskać więcej informacji.
+        </p>
+        <p>• Łóżeczka dziecięce nie są dostępne w tym obiekcie.</p>
+        <p>• Możliwość skorzystania z dodatkowych łóżek zależy od dostępności.</p>
+      </div>
+
+      <div class="regulamin-section">
+        <h3>Zwierzęta</h3>
+        <p>Zwierzęta są akceptowane. Mogą obowiązywać dodatkowe opłaty.</p>
+        <p>Prosimy o wcześniejsze zgłoszenie zamiaru przyjazdu ze zwierzęciem.</p>
+      </div>
+
+      <div class="regulamin-section">
+        <h3>Płatności</h3>
+        <p>
+          W przypadku rezerwacji przez platformę Booking.com, płatność może być pobierana w imieniu obiektu przez
+          Booking.com.
+        </p>
+        <p>Pamiętaj, by wziąć ze sobą pieniądze do wykorzystania na dodatkowe usługi.</p>
+      </div>
+
+      <div class="regulamin-section">
+        <h3>Organizacja imprez</h3>
+        <p>Organizacja imprez i przyjęć jest zabroniona.</p>
+      </div>
+
+      <div class="regulamin-section highlighted-section">
+        <h3>⚠️ Ważne: Zasady korzystania z toalet i kanalizacji</h3>
+        <p>
+          <strong>
+            Do toalety można wrzucać jedynie ludzkie nieczystości i zwykły papier toaletowy.
+          </strong>
+        </p>
+
+        <p><strong>Do toalety NIE WOLNO wrzucać:</strong></p>
+
+        <div class="prohibited-list">
+          <p><strong>Środki higieny osobistej:</strong></p>
+          <ul>
+            <li>Tampony, podpaski i ich sznurki</li>
+            <li>Waciki kosmetyczne, patyczki do uszu</li>
+            <li>Nawilżane chusteczki (nawet te oznaczone jako "spłukiwalne")</li>
+            <li>Pieluchy</li>
+            <li>Materiały opatrunkowe, bandaże, plastry</li>
+          </ul>
+
+          <p><strong>Inne niedozwolone przedmioty:</strong></p>
+          <ul>
+            <li>Ręczniki papierowe</li>
+            <li>Odpady kuchenne (zwłaszcza tłuszcze i oleje)</li>
+            <li>Włosy</li>
+            <li>Resztki jedzenia</li>
+            <li>Substancje budowlane</li>
+            <li>Chemikalia</li>
+            <li>Wszystko, co się nie rozpuszcza w wodzie</li>
+          </ul>
+        </div>
+
+        <p class="warning-text">
+          <strong>Uwaga:</strong> Wrzucenie wymienionych przedmiotów może spowodować zatory w kanalizacji. W
+          przypadku uszkodzenia instalacji z winy Gościa, koszty naprawy zostaną obciążone Gościem.
+        </p>
+      </div>
     </div>
   </div>
 </template>
@@ -127,6 +209,77 @@
   padding-left: 0.5rem;
 }
 
+.regulamin-section p strong {
+  color: #4a3a2a;
+  font-weight: 700;
+}
+
+.highlighted-section {
+  background: linear-gradient(135deg, rgba(255, 243, 224, 0.9), rgba(255, 248, 240, 0.9));
+  border: 2px solid #D4A574;
+  border-radius: 12px;
+  padding: 2rem;
+  margin-top: 2rem;
+  box-shadow: 0 4px 12px rgba(139, 90, 43, 0.15);
+}
+
+.highlighted-section h3 {
+  background: transparent;
+  border-left: none;
+  color: #8B5A2B;
+  font-size: 1.4rem;
+  padding: 0;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.prohibited-list {
+  background: white;
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin: 1rem 0;
+  border-left: 4px solid #d97706;
+}
+
+.prohibited-list p {
+  margin-bottom: 0.75rem;
+  font-size: 1.1rem;
+  color: #8B5A2B;
+  padding-left: 0;
+}
+
+.prohibited-list ul {
+  list-style: none;
+  padding-left: 0;
+  margin: 0.5rem 0 1.5rem 0;
+}
+
+.prohibited-list ul li {
+  color: #5D4E37;
+  padding: 0.5rem 0 0.5rem 2rem;
+  position: relative;
+  font-size: 1.05rem;
+  line-height: 1.6;
+}
+
+.prohibited-list ul li::before {
+  content: '✕';
+  position: absolute;
+  left: 0.5rem;
+  color: #dc2626;
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+.warning-text {
+  background: rgba(220, 38, 38, 0.08);
+  border-left: 4px solid #dc2626;
+  padding: 1rem 1.5rem;
+  border-radius: 8px;
+  margin-top: 1.5rem;
+  font-size: 1.05rem;
+}
+
 .back-button {
   background: linear-gradient(to bottom, #8B5A2B, #6B4423);
   color: white;
@@ -171,6 +324,28 @@
 
   .regulamin-section p {
     font-size: 1rem;
+  }
+
+  .highlighted-section {
+    padding: 1.5rem;
+  }
+
+  .highlighted-section h3 {
+    font-size: 1.2rem;
+  }
+
+  .prohibited-list {
+    padding: 1rem;
+  }
+
+  .prohibited-list ul li {
+    font-size: 0.95rem;
+    padding-left: 1.5rem;
+  }
+
+  .warning-text {
+    padding: 0.8rem 1rem;
+    font-size: 0.95rem;
   }
 }
 </style>

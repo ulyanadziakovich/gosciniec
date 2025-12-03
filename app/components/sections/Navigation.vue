@@ -134,7 +134,7 @@ onUnmounted(() => {
 }
 
 .nav-wrapper.scrolled::before {
-  background: rgba(93, 78, 55, 0.95);
+  background: rgba(30, 41, 59, 0.95);
 }
 
 @media (max-width: 768px) {
