@@ -1,7 +1,6 @@
 <!-- components/sections/TrailsMap.vue -->
 <template>
   <section class="trails-section">
-    <FallingLeaves :count="30" color="#8B6F47" />
     <div class="trails-header">
       <h2>🥾 Najlepsze szlaki w okolicy</h2>
       <p>Odkryj piękno Bieszczadzkiego Parku Narodowego</p>

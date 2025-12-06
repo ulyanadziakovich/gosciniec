@@ -1,8 +1,5 @@
 <template>
   <div class="about-us-wrapper">
-
-    <FallingLeaves :count="35" color="#af4c1e" />
-
     <div class="background-decorations">
       <div class="decoration-circle circle-1"></div>
       <div class="decoration-circle circle-2"></div>

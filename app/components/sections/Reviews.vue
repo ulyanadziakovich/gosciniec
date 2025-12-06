@@ -1,7 +1,5 @@
 <template>
   <section id="opinie" class="reviews-section">
-    <FallingLeaves :count="20" color="#af4c1e" />
-
     <div class="reviews-container">
       <div class="section-header">
         <h2 class="section-title">Co mówią o nas goście</h2>
