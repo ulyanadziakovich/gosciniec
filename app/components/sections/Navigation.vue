@@ -75,6 +75,13 @@
 
     <!-- Mobile Menu -->
     <div class="mobile-menu" :class="{ 'is-open': isMobileMenuOpen }">
+      <!-- Christmas Lights for Mobile Menu -->
+      <div class="mobile-christmas-lights-top">
+        <span v-for="i in 30" :key="`mobile-top-${i}`" class="mobile-light" :style="{ left: `${(i - 1) * 3.33}%`, animationDelay: `${Math.random() * 2}s` }"></span>
+      </div>
+      <div class="mobile-christmas-lights-bottom">
+        <span v-for="i in 30" :key="`mobile-bottom-${i}`" class="mobile-light" :style="{ left: `${(i - 1) * 3.33}%`, animationDelay: `${Math.random() * 2}s` }"></span>
+      </div>
       <div class="mobile-nav-links-wrapper">
         <h1 v-for="item in allMenuItems" :key="item" class="hero-title" @click="toggleMobileMenu">
           <NavLink :value="item" />
@@ -249,6 +256,54 @@ onUnmounted(() => {
     opacity: 0.3;
     transform: scale(0.8);
   }
+}
+
+/* Mobile Menu Christmas Lights */
+.mobile-christmas-lights-top,
+.mobile-christmas-lights-bottom {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 10px;
+  pointer-events: none;
+  z-index: 10;
+}
+
+.mobile-christmas-lights-top {
+  top: 0;
+}
+
+.mobile-christmas-lights-bottom {
+  bottom: 0;
+}
+
+.mobile-light {
+  position: absolute;
+  top: 2px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  animation: twinkle 2s infinite;
+}
+
+.mobile-light:nth-child(4n+1) {
+  background: radial-gradient(circle, #ff0000, #cc0000);
+  box-shadow: 0 0 10px #ff0000, 0 0 20px #ff0000;
+}
+
+.mobile-light:nth-child(4n+2) {
+  background: radial-gradient(circle, #00ff00, #00cc00);
+  box-shadow: 0 0 10px #00ff00, 0 0 20px #00ff00;
+}
+
+.mobile-light:nth-child(4n+3) {
+  background: radial-gradient(circle, #0080ff, #0066cc);
+  box-shadow: 0 0 10px #0080ff, 0 0 20px #0080ff;
+}
+
+.mobile-light:nth-child(4n) {
+  background: radial-gradient(circle, #ffff00, #cccc00);
+  box-shadow: 0 0 10px #ffff00, 0 0 20px #ffff00;
 }
 
 /* Left Section - Hamburger + Logo */

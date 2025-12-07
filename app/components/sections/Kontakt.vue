@@ -7,7 +7,6 @@
     <div class="shadow-overlay">
       <div class="contact-content">
         <p class="contact-subtitle animate-subtitle">Zapraszamy do kontaktu</p>
-        <h2 class="contact-title animate-title">Skontaktuj się z nami</h2>
 
         <div class="contact-info animate-info">
           <!-- Email -->
@@ -432,11 +431,19 @@
 
 @media (max-width: 768px) {
   .kontakt-wrapper {
-    min-height: auto;
+    min-height: 40vh;
   }
 
   .shadow-overlay {
     padding: 2.5rem 1.5rem;
+    background: linear-gradient(
+      180deg,
+      rgba(0, 0, 0, 0.7) 0%,
+      rgba(0, 0, 0, 0.5) 30%,
+      rgba(0, 0, 0, 0.6) 50%,
+      rgba(0, 0, 0, 0.5) 80%,
+      rgba(0, 0, 0, 0.7) 100%
+    );
   }
 
   .contact-content {
@@ -446,85 +453,145 @@
   .contact-subtitle {
     font-size: 0.7rem;
     letter-spacing: 2px;
-  }
-
-  .contact-title {
-    font-size: 1.5rem;
+    margin-top: 1rem;
   }
 
   .contact-info {
-    flex-direction: column;
-    gap: 1.5rem;
+    flex-direction: row;
+    gap: 1rem;
+    justify-content: center;
   }
 
   .info-item {
-    max-width: 100%;
-  }
-
-  .locations-item {
-    max-width: 100%;
-  }
-
-  .locations {
-    flex-direction: column;
-    gap: 1.5rem;
-  }
-
-  .phone-number {
-    font-size: 1rem;
-  }
-
-  .garden-text {
-    right: 110px;
-    font-size: 0.65rem;
-    padding: 0.4rem 1rem;
-    letter-spacing: 1.5px;
-  }
-
-  .garden-logo {
-    right: -180px;
-    width: 200px;
-    padding: 0.6rem;
-  }
-
-  .garden-logo p {
-    font-size: 0.75rem;
-    margin-bottom: 0.6rem;
-    letter-spacing: 1px;
-  }
-
-  .garden-logo img {
-    width: 60px;
-  }
-}
-
-@media (max-width: 480px) {
-  .contact-subtitle {
-    font-size: 0.65rem;
-  }
-
-  .contact-title {
-    font-size: 1.3rem;
+    flex: 1;
+    max-width: 48%;
+    background: rgba(255, 255, 255, 0.08);
+    padding: 1rem;
+    border-radius: 12px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
   }
 
   .info-label {
     font-size: 0.7rem;
+    margin-bottom: 0.6rem;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+  }
+
+  /* Ukryj lokalizacje na mobilce */
+  .locations-item {
+    display: none;
+  }
+
+  .phones-item {
+    padding: 1rem;
+  }
+
+  .phone-numbers {
+    gap: 0.8rem;
+  }
+
+  .phone-number {
+    font-size: 0.85rem;
+    padding: 0.5rem 0.6rem;
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 8px;
+    letter-spacing: 0.5px;
   }
 
   .info-value {
     font-size: 0.85rem;
   }
 
-  .location-name {
+  .garden-text {
+    display: none;
+  }
+
+  .garden-logo {
+    right: -200px;
+    width: 180px;
+    padding: 0.8rem;
+  }
+
+  .garden-logo:hover {
+    right: 0;
+  }
+
+  .garden-logo p {
+    font-size: 0.7rem;
+    margin-bottom: 0.6rem;
+    letter-spacing: 1px;
+  }
+
+  .garden-logo img {
+    width: 55px;
+  }
+}
+
+@media (max-width: 480px) {
+  .kontakt-wrapper {
+    min-height: 40vh;
+  }
+
+  .shadow-overlay {
+    padding: 2.5rem 1.2rem;
+  }
+
+  .contact-content {
+    gap: 1.5rem;
+  }
+
+  .contact-subtitle {
+    font-size: 0.7rem;
+    letter-spacing: 2px;
+    margin-top: 1rem;
+  }
+
+  .contact-info {
+    flex-direction: row;
+    gap: 1rem;
+    justify-content: center;
+  }
+
+  .info-item {
+    flex: 1;
+    max-width: 48%;
+    padding: 1rem;
+  }
+
+  .info-label {
+    font-size: 0.7rem;
+    margin-bottom: 0.7rem;
+  }
+
+  .info-value {
     font-size: 0.8rem;
   }
 
-  .location-address {
-    font-size: 0.75rem;
+  /* Ukryj lokalizacje na małych mobilkach */
+  .locations-item {
+    display: none;
   }
 
   .phone-number {
-    font-size: 0.95rem;
+    font-size: 0.8rem;
+    padding: 0.5rem 0.6rem;
+  }
+
+  .garden-logo {
+    right: -160px;
+    width: 160px;
+    padding: 0.6rem;
+  }
+
+  .garden-logo p {
+    font-size: 0.65rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .garden-logo img {
+    width: 50px;
   }
 }
 </style>

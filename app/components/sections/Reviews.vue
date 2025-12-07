@@ -56,7 +56,20 @@
               </div>
 
               <div class="review-content">
-                <p class="review-text">{{ review.text }}</p>
+                <p
+                  class="review-text"
+                  :class="{ 'expanded': expandedReviews[index] }"
+                  ref="reviewTexts"
+                >
+                  {{ review.text }}
+                </p>
+                <button
+                  v-if="shouldShowReadMore(index)"
+                  class="read-more-btn"
+                  @click="toggleReview(index)"
+                >
+                  {{ expandedReviews[index] ? 'Pokaż mniej' : 'Czytaj więcej' }}
+                </button>
                 <div class="review-highlights" v-if="review.highlights && review.highlights.length > 0">
                   <span v-for="(highlight, i) in review.highlights" :key="i" class="highlight-tag">
                     {{ highlight }}
@@ -75,12 +88,23 @@
           ›
         </button>
       </div>
+
+      <!-- Carousel dots (mobile) -->
+      <div class="carousel-dots">
+        <span
+          v-for="(review, index) in reviews"
+          :key="`dot-${index}`"
+          class="dot"
+          :class="{ 'active': index === currentReviewIndex }"
+          @click="scrollToReview(index)"
+        ></span>
+      </div>
     </div>
   </section>
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from 'vue';
+import { ref, computed, onMounted, nextTick } from 'vue';
 
 interface Review {
   name: string;
@@ -92,9 +116,12 @@ interface Review {
 }
 
 const scrollContainer = ref<HTMLElement | null>(null);
+const reviewTexts = ref<HTMLElement[]>([]);
 const scrollPosition = ref(0);
 const overallRating = ref(9.6); // Twoja ocena z Booking.com
 const ratingText = ref('Wyjątkowy'); // Booking.com używa "Wyjątkowy" dla 9+
+const expandedReviews = ref<{ [key: number]: boolean }>({});
+const truncatedReviews = ref<Set<number>>(new Set());
 
 // Prawdziwe opinie z Booking.com
 const reviews = ref<Review[]>([
@@ -170,6 +197,12 @@ const isAtEnd = computed(() => {
   return Math.ceil(scrollPosition.value + container.clientWidth) >= container.scrollWidth - 10;
 });
 
+const currentReviewIndex = computed(() => {
+  if (!scrollContainer.value) return 0;
+  const cardWidth = scrollContainer.value.clientWidth;
+  return Math.round(scrollPosition.value / cardWidth);
+});
+
 const updateScrollPosition = () => {
   if (scrollContainer.value) {
     scrollPosition.value = scrollContainer.value.scrollLeft;
@@ -195,14 +228,49 @@ const scrollRight = () => {
     });
   }
 };
+
+const scrollToReview = (index: number) => {
+  if (scrollContainer.value) {
+    const cardWidth = scrollContainer.value.clientWidth;
+    scrollContainer.value.scrollTo({
+      left: cardWidth * index,
+      behavior: 'smooth'
+    });
+  }
+};
+
+const toggleReview = (index: number) => {
+  expandedReviews.value[index] = !expandedReviews.value[index];
+};
+
+const shouldShowReadMore = (index: number) => {
+  return truncatedReviews.value.has(index);
+};
+
+const checkTruncation = () => {
+  nextTick(() => {
+    if (reviewTexts.value) {
+      reviewTexts.value.forEach((el, index) => {
+        if (el && el.scrollHeight > el.clientHeight) {
+          truncatedReviews.value.add(index);
+        }
+      });
+    }
+  });
+};
+
+onMounted(() => {
+  checkTruncation();
+});
 </script>
 
 <style scoped>
 .reviews-section {
   position: relative;
-  background: linear-gradient(135deg, #faf8f0 0%, #f5f0e8 50%, #fff8f0 100%);
-  padding: 4rem 2rem;
+  background: linear-gradient(180deg, #fafafa 0%, #ffffff 50%, #fafafa 100%);
+  padding: 8rem 2rem;
   overflow: hidden;
+  font-family: 'Poppins', system-ui, sans-serif;
 }
 
 .reviews-container {
@@ -214,15 +282,17 @@ const scrollRight = () => {
 
 .section-header {
   text-align: center;
-  margin-bottom: 2rem;
+  margin-bottom: 3rem;
 }
 
 .section-title {
-  font-family: Georgia, serif;
-  font-size: 2.5rem;
-  color: #3D2817;
-  margin-bottom: 1.5rem;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+  font-family: 'Poppins', sans-serif;
+  font-size: 4rem;
+  color: #2c3e50;
+  margin-bottom: 2rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+  line-height: 1.2;
 }
 
 .booking-badge {
@@ -230,21 +300,24 @@ const scrollRight = () => {
   align-items: center;
   justify-content: center;
   gap: 2rem;
-  padding: 1.5rem;
-  background: white;
-  border-radius: 15px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-  max-width: 500px;
+  padding: 1.5rem 2rem;
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(10px);
+  border-radius: 16px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+  border: 1px solid rgba(124, 112, 76, 0.15);
+  max-width: 550px;
   margin: 0 auto;
   text-decoration: none;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
 .booking-badge:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 6px 30px rgba(0, 0, 0, 0.15);
-  background: #f8f8f8;
+  transform: translateY(-5px);
+  box-shadow: 0 15px 50px rgba(0, 0, 0, 0.12);
+  background: rgba(255, 255, 255, 0.95);
+  border-color: rgba(124, 112, 76, 0.25);
 }
 
 .booking-logo {
@@ -275,23 +348,27 @@ const scrollRight = () => {
 }
 
 .rating-text {
-  font-weight: bold;
-  color: #3D2817;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  color: #2c3e50;
   font-size: 1.2rem;
+  letter-spacing: 0.3px;
 }
 
 .review-count {
-  color: #666;
+  font-family: 'Poppins', sans-serif;
+  color: #555;
   font-size: 0.9rem;
+  font-weight: 400;
 }
 
 .see-all-reviews {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  padding: 0.6rem 1.2rem;
+  padding: 0.7rem 1.4rem;
   background: linear-gradient(135deg, #0071c2 0%, #003580 100%);
-  border-radius: 8px;
+  border-radius: 10px;
   transition: all 0.3s ease;
 }
 
@@ -301,10 +378,12 @@ const scrollRight = () => {
 }
 
 .see-all-text {
+  font-family: 'Poppins', sans-serif;
   color: white;
   font-weight: 600;
   font-size: 0.95rem;
   white-space: nowrap;
+  letter-spacing: 0.3px;
 }
 
 .arrow-icon {
@@ -326,28 +405,33 @@ const scrollRight = () => {
 }
 
 .carousel-btn {
-  background: white;
-  border: 2px solid #D4A574;
+  font-family: 'Poppins', sans-serif;
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(10px);
+  border: 2px solid rgba(124, 112, 76, 0.3);
   width: 50px;
   height: 50px;
   border-radius: 50%;
   font-size: 2rem;
-  color: #af4c1e;
+  color: #7c704c;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
   flex-shrink: 0;
   z-index: 10;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
 }
 
 .carousel-btn:hover:not(:disabled) {
-  background: #af4c1e;
+  background: #7c704c;
   color: white;
   transform: scale(1.1);
+  box-shadow: 0 6px 20px rgba(124, 112, 76, 0.3);
 }
 
 .carousel-btn:disabled {
   opacity: 0.3;
   cursor: not-allowed;
+  border-color: rgba(124, 112, 76, 0.15);
 }
 
 .reviews-track-container {
@@ -372,26 +456,29 @@ const scrollRight = () => {
 .review-card {
   flex: 0 0 calc((100% - 2rem) / 3);
   max-width: calc((100% - 2rem) / 3);
-  background: white;
-  border-radius: 12px;
-  padding: 1rem;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-  border: 1px solid #e7e7e7;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(10px);
+  border-radius: 16px;
+  padding: 1.5rem;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.06);
+  border: 1px solid rgba(124, 112, 76, 0.1);
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
 .review-card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.1);
+  background: rgba(255, 255, 255, 0.9);
+  border-color: rgba(124, 112, 76, 0.2);
 }
 
 .review-header {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  margin-bottom: 0.75rem;
-  padding-bottom: 0.5rem;
-  border-bottom: 1px solid #f0e6d2;
+  margin-bottom: 1rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid rgba(124, 112, 76, 0.15);
 }
 
 .reviewer-info {
@@ -404,33 +491,39 @@ const scrollRight = () => {
   width: 45px;
   height: 45px;
   border-radius: 50%;
-  background: linear-gradient(135deg, #af4c1e 0%, #8b3a1e 100%);
+  background: linear-gradient(135deg, #7c704c 0%, #5a5035 100%);
   color: white;
   display: flex;
   align-items: center;
   justify-content: center;
+  font-family: 'Poppins', sans-serif;
   font-size: 1.2rem;
-  font-weight: bold;
-  box-shadow: 0 2px 8px rgba(175, 76, 30, 0.3);
+  font-weight: 600;
+  box-shadow: 0 4px 12px rgba(124, 112, 76, 0.25);
   flex-shrink: 0;
 }
 
 .reviewer-details {
   display: flex;
   flex-direction: column;
+  gap: 0.15rem;
 }
 
 .reviewer-name {
+  font-family: 'Poppins', sans-serif;
   font-size: 1rem;
-  font-weight: bold;
-  color: #3D2817;
+  font-weight: 600;
+  color: #2c3e50;
   margin: 0;
+  letter-spacing: 0.3px;
 }
 
 .reviewer-location {
-  color: #666;
+  font-family: 'Poppins', sans-serif;
+  color: #555;
   font-size: 0.85rem;
   margin: 0;
+  font-weight: 400;
 }
 
 .review-rating {
@@ -451,57 +544,89 @@ const scrollRight = () => {
 }
 
 .review-text {
-  font-size: 0.875rem;
-  line-height: 1.5;
-  color: #333;
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.95rem;
+  line-height: 1.7;
+  color: #555;
   margin-bottom: 0.5rem;
   display: -webkit-box;
   -webkit-line-clamp: 4;
   -webkit-box-orient: vertical;
   overflow: hidden;
+  font-weight: 400;
+  transition: all 0.3s ease;
+}
+
+.review-text.expanded {
+  display: block;
+  -webkit-line-clamp: unset;
+  overflow: visible;
+}
+
+.read-more-btn {
+  font-family: 'Poppins', sans-serif;
+  background: transparent;
+  border: none;
+  color: #7c704c;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 0;
+  margin-bottom: 0.75rem;
+  text-decoration: underline;
+  transition: all 0.2s ease;
+  letter-spacing: 0.3px;
+}
+
+.read-more-btn:hover {
+  color: #5a5035;
+  text-decoration: none;
 }
 
 .review-highlights {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.4rem;
+  gap: 0.5rem;
   margin-top: 0.5rem;
 }
 
 .highlight-tag {
-  background: #f0e6d2;
-  color: #af4c1e;
-  padding: 0.3rem 0.75rem;
-  border-radius: 15px;
+  font-family: 'Poppins', sans-serif;
+  background: rgba(124, 112, 76, 0.1);
+  color: #7c704c;
+  padding: 0.4rem 0.9rem;
+  border-radius: 20px;
   font-size: 0.75rem;
   font-weight: 500;
+  border: 1px solid rgba(124, 112, 76, 0.2);
+  letter-spacing: 0.3px;
 }
 
 .carousel-dots {
-  display: flex;
+  display: none;
   justify-content: center;
   gap: 0.5rem;
   margin-top: 2rem;
 }
 
 .dot {
-  width: 12px;
-  height: 12px;
+  width: 10px;
+  height: 10px;
   border-radius: 50%;
-  background: #ddd;
+  background: rgba(124, 112, 76, 0.3);
   border: none;
   cursor: pointer;
   transition: all 0.3s ease;
 }
 
 .dot.active {
-  background: #af4c1e;
-  width: 30px;
-  border-radius: 6px;
+  background: #7c704c;
+  width: 24px;
+  border-radius: 5px;
 }
 
 .dot:hover {
-  background: #D4A574;
+  background: rgba(124, 112, 76, 0.5);
 }
 
 /* Responsywność */
@@ -514,11 +639,15 @@ const scrollRight = () => {
 
 @media (max-width: 768px) {
   .reviews-section {
-    padding: 3rem 1rem;
+    padding: 6rem 1rem;
+  }
+
+  .section-header {
+    margin-bottom: 2rem;
   }
 
   .section-title {
-    font-size: 1.8rem;
+    font-size: 2.5rem;
   }
 
   .booking-badge {
@@ -540,9 +669,11 @@ const scrollRight = () => {
   }
 
   .carousel-btn {
-    width: 35px;
-    height: 35px;
-    font-size: 1.3rem;
+    display: none;
+  }
+
+  .carousel-dots {
+    display: flex;
   }
 
   .review-card {
@@ -558,6 +689,10 @@ const scrollRight = () => {
   .review-text {
     font-size: 0.9rem;
     -webkit-line-clamp: 6;
+  }
+
+  .read-more-btn {
+    font-size: 0.8rem;
   }
 
   .reviewer-avatar {

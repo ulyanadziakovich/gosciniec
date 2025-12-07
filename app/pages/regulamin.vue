@@ -168,8 +168,8 @@
 }
 
 .regulamin-wrapper {
-   background: rgba(60, 60, 60, 0.55);
-  backdrop-filter: blur(10px);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.95) 0%, rgba(250, 250, 250, 0.98) 100%);
+  backdrop-filter: blur(20px);
   min-height: 100vh;
   padding: 6rem 1.5rem 10rem;
   font-family: 'Poppins', system-ui, sans-serif;
@@ -184,7 +184,7 @@
   z-index: 10;
 }
 
-/* Przycisk dokładnie jak w hero – przeźroczysty z ramką */
+/* Przycisk - prosty i profesjonalny */
 .back-button {
   display: inline-flex;
   align-items: center;
@@ -194,34 +194,35 @@
   font-size: 1.1rem;
   font-weight: 500;
   letter-spacing: 1px;
-  color: #ffffff;
-  background: rgba(255, 255, 255, 0.15);
-  border: 2px solid rgba(255, 255, 255, 0.4);
-  border-radius: 8px;
+  color: #2c3e50;
+  background: rgba(255, 255, 255, 0.9);
+  border: 2px solid rgba(124, 112, 76, 0.3);
+  border-radius: 12px;
   backdrop-filter: blur(10px);
   cursor: pointer;
   transition: all 0.3s ease;
   text-transform: uppercase;
   margin-bottom: 4rem;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 4px 20px rgba(124, 112, 76, 0.15);
   text-decoration: none;
 }
 
 .back-button:hover {
-  background: rgba(255, 255, 255, 0.25);
-  border-color: rgba(255, 255, 255, 0.6);
+  background: #7c704c;
+  color: #ffffff;
+  border-color: #7c704c;
   transform: translateY(-2px);
-  box-shadow: 0 6px 30px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 6px 30px rgba(124, 112, 76, 0.3);
 }
 
 .regulamin-title {
   font-family: 'Poppins', sans-serif;
   font-size: 4.2rem;
   font-weight: 600;
-  color: #ffffff;
+  color: #2c3e50;
   margin: 0 0 4rem;
   letter-spacing: 1px;
-  text-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
+  text-shadow: none;
 }
 
 @media (max-width: 768px) {
@@ -234,12 +235,12 @@
 
 .section {
   text-align: left;
-  margin-bottom: 4rem;
-  background: rgba(255, 255, 255, 0.08);
+  margin-bottom: 3rem;
+  background: rgba(255, 255, 255, 0.8);
   padding: 2.5rem;
   border-radius: 16px;
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 4px 20px rgba(124, 112, 76, 0.1);
+  border: 1px solid rgba(124, 112, 76, 0.15);
   backdrop-filter: blur(10px);
 }
 
@@ -247,26 +248,26 @@
   font-family: 'Poppins', sans-serif;
   font-size: 1.8rem;
   font-weight: 600;
-  color: #f4f0d4;
+  color: #7c704c;
   margin: 0 0 1.5rem;
   text-align: center;
-  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+  text-shadow: none;
 }
 
 .intro-text {
   font-size: 1.2rem;
   line-height: 1.8;
-  color: rgba(255, 255, 255, 0.9);
+  color: #555;
   margin-bottom: 2rem;
   text-align: center;
-  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  text-shadow: none;
 }
 
 .rules-list {
   counter-reset: item;
   padding-left: 1.2rem;
   line-height: 2;
-  color: rgba(255, 255, 255, 0.85);
+  color: #555;
   font-size: 1.1rem;
 }
 
@@ -282,20 +283,20 @@
   position: absolute;
   left: -1.2rem;
   font-weight: 600;
-  color: #f4f0d4;
+  color: #7c704c;
 }
 
 /* Ważna sekcja – wyróżniona */
 .important-section {
-  background: rgba(244, 240, 212, 0.12);
-  border: 2px solid rgba(244, 240, 212, 0.3);
+  background: rgba(124, 112, 76, 0.08);
+  border: 2px solid rgba(124, 112, 76, 0.25);
   border-radius: 20px;
   overflow: hidden;
   backdrop-filter: blur(15px);
 }
 
 .warning-box {
-  background: rgba(220, 38, 38, 0.15);
+  background: rgba(220, 38, 38, 0.08);
   border-left: 5px solid #ef4444;
   padding: 2rem;
   border-radius: 0 16px 16px 0;
@@ -306,19 +307,19 @@
 .warning-box p {
   margin: 1rem 0;
   font-size: 1.15rem;
-  color: rgba(255, 255, 255, 0.9);
+  color: #555;
 }
 
 .final-warning {
-  background: rgba(220, 38, 38, 0.25);
-  color: #fecaca;
+  background: rgba(220, 38, 38, 0.12);
+  color: #dc2626;
   padding: 1rem 1.5rem;
   border-radius: 12px;
   font-weight: 600;
   margin-top: 1.5rem;
-  border: 1px solid rgba(254, 202, 202, 0.3);
+  border: 1px solid rgba(220, 38, 38, 0.3);
   backdrop-filter: blur(10px);
-  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  text-shadow: none;
 }
 
 .prohibited-items ul {
@@ -329,7 +330,7 @@
 .prohibited-items ul li {
   padding: 0.6rem 0 0.6rem 2rem;
   position: relative;
-  color: rgba(255, 255, 255, 0.85);
+  color: #555;
 }
 
 .prohibited-items ul li::before {
@@ -339,20 +340,21 @@
   position: absolute;
   left: 0;
   font-size: 1.4rem;
-  text-shadow: 0 2px 8px rgba(239, 68, 68, 0.5);
+  text-shadow: none;
 }
 
 .prohibited-items p {
-  color: rgba(255, 255, 255, 0.95);
+  color: #555;
   font-weight: 600;
 }
 
 .section p {
-  color: rgba(255, 255, 255, 0.85);
+  color: #555;
   line-height: 1.8;
 }
 
 .section p strong {
-  color: #f4f0d4;
+  color: #7c704c;
+  font-weight: 600;
 }
 </style>
